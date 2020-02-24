@@ -1,17 +1,23 @@
 version: '2'
+
 services:
-  mariadb:
+  mysql:
     image: monstrenyatko/rpi-mariadb
-    container_name: mariadb
     volumes:
-        - db_data:/var/lib/mysql
-      restart: always
-      environment:
-        MYSQL_ROOT_PASSWORD: c1vG7R34
-        MYSQL_DATABASE: tracker
-#        MYSQL_USER: digitalman
-#        MYSQL_PASSWORD: strongpassword
-      ports:
-        - "3306:3306"
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: c1vG7R34
+      MYSQL_DATABASE: tracker
+      MYSQL_USER: digitalman
+      MYSQL_PASSWORD: c1vG7R34
+      entrypoint:
+        sh -c "
+          echo 'CREATE DATABASE IF NOT EXISTS firstDB; CREATE DATABASE IF NOT EXISTS secondDB;' > /docker-entrypoint-initdb.d/init.sql;
+          /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        "
+    ports:
+      - "3306:3306"
+
 volumes:
-  db-data:
+  db_data:
