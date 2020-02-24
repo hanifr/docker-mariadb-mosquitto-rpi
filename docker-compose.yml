@@ -1,0 +1,17 @@
+version: '2'
+services:
+  mariadb:
+    image: monstrenyatko/rpi-mariadb
+    container_name: mariadb
+    volumes:
+        - db_data:/var/lib/mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: c1vG7R34
+        MYSQL_DATABASE: tracker
+#        MYSQL_USER: digitalman
+#        MYSQL_PASSWORD: strongpassword
+      ports:
+        - "3306:3306"
+volumes:
+  db-data:
