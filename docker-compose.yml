@@ -7,10 +7,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: c1vG7R34
-      MYSQL_DATABASE: tracker
-      MYSQL_USER: digitalman
-      MYSQL_PASSWORD: c1vG7R34
+      MYSQL_ROOT_PASSWORD: very-strong-password
+      MYSQL_DATABASE: data1
+      MYSQL_USER: username
+      MYSQL_PASSWORD: very-strong-password
     ports:
       - "3306:3306"
 
