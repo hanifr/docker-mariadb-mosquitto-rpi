@@ -2,15 +2,16 @@ version: '2'
 
 services:
   mysql:
-    image: monstrenyatko/rpi-mariadb
+    image: aneh2killa/rpi-mariadb
     volumes:
       - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: very-strong-password
       MYSQL_DATABASE: data1
-      MYSQL_USER: username
+      MYSQL_USER: root
       MYSQL_PASSWORD: very-strong-password
+      TZ: Asia/Kuala_Lumpur
     ports:
       - "3306:3306"
 
