@@ -19,11 +19,12 @@ echo
 # update the OS
 sudo apt update
 
-echo "${_YELLOW}Docker Installation :: started.${_RESET}"
+echo "${_YELLOW}Enabling Wi-Fi connection :: started.${_RESET}"
 echo
 
 sudo rfkill unblock 0
 
 sleep 1
-
+echo "${_YELLOW}Enabling Wi-Fi connection :: finished.${_RESET}"
+echo
 sudo reboot
