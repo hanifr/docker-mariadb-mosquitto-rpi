@@ -23,8 +23,10 @@ echo "${_YELLOW}Enabling Wi-Fi connection :: started.${_RESET}"
 echo
 
 sudo rfkill unblock 0
-
 sleep 1
+sudo timedatectl set-timezone Asia/Kuala_Lumpur
+sleep 1
+
 echo "${_YELLOW}Enabling Wi-Fi connection :: finished.${_RESET}"
 echo
 sudo reboot
