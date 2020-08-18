@@ -20,6 +20,9 @@ sudo apt update
 
 echo "${_YELLOW}Docker Installation :: started.${_RESET}"
 echo
+
+. initset
+sleep 2
 # install docker-ce
 curl -sSL https://get.docker.com | sh
 
@@ -56,3 +59,13 @@ echo "${_CYAN}Then, hit ctrl + x to exit${_RESET}"
 echo
 echo "${_CYAN}Now, execute command :: docker-compose up -d${_RESET}"
 echo
+
+echo "${_CYAN}Do you want to deploy node-red and grafana?${_RESET} $_setfile"
+                read -p "Enter yes or no: " _setfile
+c1="yes"
+        if [ "$_setfile" = "$c1" ]; then
+        # Adding privilage to setup files
+        . autored
+        sleep 5
+        . initgraf
+        fi
