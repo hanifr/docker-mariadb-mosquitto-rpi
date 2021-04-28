@@ -36,7 +36,7 @@ sudo apt-get install -y python python-pip
 sudo apt-get remove python-configparser
 
 # install docker compose
-sudo pip install docker-compose
+sudo pip3 install docker-compose
 echo "${_YELLOW}Docker Installation :: completed.${_RESET}"
 echo
 sleep 5
