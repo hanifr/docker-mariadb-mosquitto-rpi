@@ -1,1 +1,471 @@
-[{"id":"3e0b45b1.3d070a","type":"tab","label":"Owntracks","disabled":false,"info":""},{"id":"5698b4ba.2826bc","type":"debug","z":"3e0b45b1.3d070a","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":830,"y":160,"wires":[]},{"id":"10f9403a.f9e74","type":"mqtt in","z":"3e0b45b1.3d070a","name":"","topic":"owntracks/hanif/mrios","qos":"2","datatype":"auto","broker":"ef75e605.488df8","x":180,"y":560,"wires":[["38581b8e.8410c4","9983df5.a02bb2","29268132.f26f8e"]]},{"id":"d72e0362.a43c3","type":"function","z":"3e0b45b1.3d070a","name":"format json","func":"\nreturn {\n    payload: {\n        name: msg.payload.tid,\n        lat: msg.payload.lat,\n        lon: msg.payload.lon,\n        icon: 'user-circle-x'\n    }\n};","outputs":1,"noerr":0,"x":710,"y":280,"wires":[["f05d595d.10ad08","a6e49c85.5a16e","5698b4ba.2826bc"]]},{"id":"97fb8960.a746c8","type":"function","z":"3e0b45b1.3d070a","name":"accel data","func":"\nreturn {\n    payload: {\n    Acc:msg.payload.acc\n    }\n};","outputs":1,"noerr":0,"x":610,"y":520,"wires":[["56b6251a.c2135c"]]},{"id":"e4b9e3bd.bd14f","type":"function","z":"3e0b45b1.3d070a","name":"Bat data","func":"\n\nreturn {\n    payload: {\n    Batt:msg.payload.batt\n    }\n};","outputs":1,"noerr":0,"x":620,"y":560,"wires":[["5626b5c8.fc2e3c"]]},{"id":"56b6251a.c2135c","type":"split","z":"3e0b45b1.3d070a","name":"","splt":":","spltType":"str","arraySplt":1,"arraySpltType":"len","stream":false,"addname":"","x":770,"y":520,"wires":[["411e66c1.7a22c8"]]},{"id":"5626b5c8.fc2e3c","type":"split","z":"3e0b45b1.3d070a","name":"","splt":":","spltType":"str","arraySplt":1,"arraySpltType":"len","stream":false,"addname":"","x":770,"y":560,"wires":[["6e8c7fd2.e4db2"]]},{"id":"b464eb6a.3492d8","type":"comment","z":"3e0b45b1.3d070a","name":"How to embed Map in Dashboard","info":"This example shows how to embed the Worldmap \ninto a template node within the `node-red-dashboard`\n\nThe first flow creates a dashboard button that \ngenerates a randon position, with the required \nicon, and passes that to the worldmap. The\nmap is configured to automatically pan to the\nposition of any point that arrives.\n\nThe second flow initialise the dashboard template\nwith the initial map and sets it to a more square shape\nby adjusting the height.","x":620,"y":400,"wires":[]},{"id":"f97a0836.76d528","type":"function","z":"3e0b45b1.3d070a","name":"GPS","func":"\n\nreturn {\n    payload: {\n        name: msg.payload.tid,\n        lat: msg.payload.lat,\n        lon: msg.payload.lon,\n        icon: 'user-circle-o'\n    }\n};","outputs":1,"noerr":0,"x":630,"y":700,"wires":[["5dfd426c.0d3c6c","d361e33d.2aebc","c6c840d3.a2a42"]]},{"id":"d361e33d.2aebc","type":"template","z":"3e0b45b1.3d070a","name":"","field":"payload","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"<iframe src=\"../worldmap\" height=300px ></iframe>","x":760,"y":780,"wires":[["7be9d79c.aeaf18"]]},{"id":"d1e38ff8.1efff","type":"function","z":"3e0b45b1.3d070a","name":"Velocity","func":"return {\n    payload: {\n    vel:msg.payload.vel\n    }\n};","outputs":1,"noerr":0,"x":620,"y":600,"wires":[["61cee4c7.37440c"]]},{"id":"61cee4c7.37440c","type":"split","z":"3e0b45b1.3d070a","name":"","splt":":","spltType":"str","arraySplt":1,"arraySpltType":"len","stream":false,"addname":"","x":770,"y":600,"wires":[["b7049cbe.35359"]]},{"id":"cdbf98fb.5797e8","type":"function","z":"3e0b45b1.3d070a","name":"Altitude","func":"return {\n    payload: {\n    Altitude:msg.payload.alt\n    }\n};","outputs":1,"noerr":0,"x":620,"y":660,"wires":[["ae08b605.452fa8"]]},{"id":"ae08b605.452fa8","type":"split","z":"3e0b45b1.3d070a","name":"","splt":":","spltType":"str","arraySplt":1,"arraySpltType":"len","stream":false,"addname":"","x":770,"y":660,"wires":[["a3bb6ac0.417218"]]},{"id":"8464fdd0.23608","type":"function","z":"3e0b45b1.3d070a","name":"RTC","func":"return {\n    payload: {\n    Time:msg.payload.tst\n    }\n};","outputs":1,"noerr":0,"x":590,"y":480,"wires":[["5b059dc9.251824"]]},{"id":"6d960890.871698","type":"inject","z":"3e0b45b1.3d070a","name":"icon","topic":"","payload":"nt_fog","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":790,"y":440,"wires":[["568b288e.b16488","df9dc114.a2e36"]]},{"id":"b7049cbe.35359","type":"function","z":"3e0b45b1.3d070a","name":"Velocity (m/s)","func":"msg.payload = (msg.payload / 3.6);\nreturn msg;","outputs":1,"noerr":0,"x":930,"y":620,"wires":[["1eb22263.21a71e"]]},{"id":"c8bbf424.895ee8","type":"comment","z":"3e0b45b1.3d070a","name":"Using JSON to decide incoming msg","info":"","x":730,"y":840,"wires":[]},{"id":"363da493.cfaa1c","type":"debug","z":"3e0b45b1.3d070a","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":990,"y":860,"wires":[]},{"id":"38581b8e.8410c4","type":"json","z":"3e0b45b1.3d070a","name":"","property":"payload","action":"","pretty":true,"x":630,"y":900,"wires":[["2052745d.4f467c"]]},{"id":"2052745d.4f467c","type":"function","z":"3e0b45b1.3d070a","name":"HeadingSpeed","func":"var msg = {\n    \"payload\": {\n        \"speed\":msg.payload.vel,\n        \"speed_unit\":\"KPH\",\n        \"degrees\":msg.payload.vac\n        \n    }\n}\nreturn msg;","outputs":1,"noerr":0,"x":780,"y":900,"wires":[["f3b2ebad.9d6388","363da493.cfaa1c"]]},{"id":"9983df5.a02bb2","type":"json","z":"3e0b45b1.3d070a","name":"","property":"payload","action":"","pretty":false,"x":410,"y":500,"wires":[["d72e0362.a43c3"]]},{"id":"a3bb6ac0.417218","type":"ui_chart","z":"3e0b45b1.3d070a","name":"","group":"7be37355.bf8d4c","order":7,"width":8,"height":3,"label":"Altitude (m)","chartType":"line","legend":"false","xformat":"HH:mm:ss","interpolate":"step","nodata":"","dot":false,"ymin":"","ymax":"","removeOlder":1,"removeOlderPoints":"","removeOlderUnit":"3600","cutout":0,"useOneColor":false,"colors":["#1f77b4","#aec7e8","#ff7f0e","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5"],"useOldStyle":false,"outputs":1,"x":930,"y":660,"wires":[[]]},{"id":"411e66c1.7a22c8","type":"ui_gauge","z":"3e0b45b1.3d070a","name":"","group":"7be37355.bf8d4c","order":5,"width":4,"height":4,"gtype":"donut","title":"Movement","label":"steps","format":"{{value}}","min":0,"max":"1000","colors":["#b53f1d","#d1e65a","#30ca1c"],"seg1":"","seg2":"","x":930,"y":520,"wires":[]},{"id":"6e8c7fd2.e4db2","type":"ui_gauge","z":"3e0b45b1.3d070a","name":"","group":"7be37355.bf8d4c","order":3,"width":4,"height":4,"gtype":"wave","title":"Battery","label":"%","format":"{{value}}","min":0,"max":"100","colors":["#b53f32","#e5e620","#32ca0f"],"seg1":"","seg2":"","x":940,"y":560,"wires":[]},{"id":"1eb22263.21a71e","type":"ui_gauge","z":"3e0b45b1.3d070a","name":"","group":"7be37355.bf8d4c","order":6,"width":4,"height":4,"gtype":"donut","title":"Velocity","label":"m/s","format":"{{msg.payload | number:1}}","min":0,"max":"50","colors":["#00b500","#e6e600","#ca3838"],"seg1":"","seg2":"","x":1120,"y":620,"wires":[]},{"id":"df9dc114.a2e36","type":"ui_text","z":"3e0b45b1.3d070a","group":"7be37355.bf8d4c","order":2,"width":8,"height":2,"name":"","label":"","format":"<h2>{{msg.payload}}</h2>","layout":"row-center","x":950,"y":480,"wires":[]},{"id":"7be9d79c.aeaf18","type":"ui_template","z":"3e0b45b1.3d070a","group":"7be37355.bf8d4c","name":"Map CSS","order":8,"width":8,"height":6,"format":"<div ng-bind-html=\"msg.payload | trusted\"></div>","storeOutMessages":true,"fwdInMessages":true,"templateScope":"local","x":940,"y":780,"wires":[[]]},{"id":"568b288e.b16488","type":"ui_template","z":"3e0b45b1.3d070a","group":"7be37355.bf8d4c","name":"","order":1,"width":8,"height":2,"format":"<div style=\"display: flex;height: 100%;justify-content: center;align-items: center;\">\n<i class=\"fa-4x wi wi-wu-{{msg.payload}}\"></i>\n</div>","storeOutMessages":true,"fwdInMessages":true,"templateScope":"local","x":940,"y":440,"wires":[["df9dc114.a2e36"]]},{"id":"73f15abd.b374b4","type":"ui_template","z":"3e0b45b1.3d070a","group":"1cffee79.2009b2","name":"Load CSS","order":1,"width":0,"height":0,"format":"<link rel=\"stylesheet\" href=\"/weather-icons/mycss/weather-icons.min.css\">\n<style>\n    .nr-dashboard-theme-dark ui-card-panel {\n \tbackground-color: #222;\n \toutline: 1px solid #cccccc;\n \t  }\n</style>\n","storeOutMessages":true,"fwdInMessages":true,"resendOnRefresh":false,"templateScope":"local","x":890,"y":400,"wires":[[]]},{"id":"f3b2ebad.9d6388","type":"ui_template","z":"3e0b45b1.3d070a","group":"7be37355.bf8d4c","name":"Compass","order":4,"width":4,"height":4,"format":"<!--\npass msg.payload.degrees, msg.payload.speed, msg.payload.speed_unit\n-->\n<script>\n    // Watch the incoming message and convert the degrees to a human readable compass direction\n    (function(scope){\n        scope.$watch('msg', function(msg) {\n            if(typeof(msg) === \"object\"){\n                // Convert the degrees to cardinal directions\n                var deg = msg.payload.degrees;\n                var dirs = [\"N\",\"NNE\",\"NE\",\"ENE\",\"E\",\"ESE\",\"SE\",\"SSE\",\"S\",\"SSW\",\"SW\",\"WSW\",\"W\",\"WNW\",\"NW\",\"NNW\",\"N\"];\n                var idx = Math.round(deg*(dirs.length-1)/360);\n                scope.direction = dirs[idx];\n                \n                \n                // Keep track of the highest speed value, giving it 40 as a rough starting point.\n                // Works okay for MPH and KTS, but KMH will show purple at a lower speed than the rest\n                scope.max_val = (msg.payload.speed > scope.max_val ? msg.payload.speed : 40);\n                \n                scope.p_speed = msg.payload.speed;\n                scope.p_max_val = scope.max_val;\n                var low_colors = [\n                    //'#FFFFFF', // white\n                    //'#d6f7ff', // light blue\n                    '#85ffd2', // blue green\n                    '#61ff6e' // green 10mph\n                    ];\n                var high_colors = [\n                    '#61ff6e', // green 10mph\n                    '#d5ff61', // green yellow\n                    '#fffc61', // yellow\n                    '#ffe561', // yellow orange 20mph\n                    '#ffcd61', // orange\n                    '#ffad61', // orange red\n                    '#ff7661', // red\n                    '#ff61dd', // red purple\n                    '#e261ff' // purple\n                ];\n                \n                if(msg.payload.speed <= 10){\n                    scope.color = low_colors[Math.round(msg.payload.speed*(low_colors.length-1)/10)];\n                }else{\n                    scope.color = high_colors[Math.round(msg.payload.speed*(high_colors.length-1) / scope.max_val)];\n                }\n                \n                //$(\".compass_container\").css(\"background-color\",scope.color);\n            }\n    \t});\n    })(scope);\n    \n    // Hacks to improve the layout and make it scale\n    $(document).ready(function(){\n        setTimeout(function () {\n            // Remove the auto scrolling from the parent node\n            $(\".compass_container\").parent().css(\"overflow\",\"hidden\");\n        \n            // Adjust the color to match the theme base color by looking up the toolbar header background color;\n            $(\".compass_container .triangle\").css(\"border-bottom-color\",$(\"md-toolbar\").css(\"background-color\"));\n        \n            // Scale the compass into the box that it's being rendered in\n            // This CSS hack helps make sure the line & font size scales appropriately\n            // Based on the node's grid size\n            $(\".compass_container\").each(function(k,v){\n                var scaleWidth = $(v).parent().width() / $(v).width();\n                var scaleHeight = $(v).parent().height() / $(v).height();\n        \n                var translateX = ($(v).width() - $(v).parent().width()) / 2;\n                var translateY = ($(v).height() - $(v).parent().height()) / 2;\n        \n                $(v).css(\"transform\",\"translate(-\"+translateX+\"px,-\"+translateY+\"px) scale(\"+scaleWidth+\",\"+scaleHeight+\") \");\n            });\n            \n            $(\".compass_container\").css(\"display\",\"block\"); // Unhide it now that it's resized\n        }, 1000);\n    });\n</script>\n<style>\n     @import url(https://fonts.googleapis.com/css?family=Dosis:200,400,500,600);\n     \n     .compass_container{\n        transition: 1s ease-in-out;\n        position: relative;\n        display: none;\n        width: 500px;\n        height: 500px;\n        border-radius: 75%;\n        font-family: 'Dosis';\n        font-size: 80px;\n        box-shadow: inset 0px 0px 0px 30px #777; \n        background-color: {{color}};\n     }\n     \n     .compass_container .compass_header{\n        font-weight: bold;\n        position: absolute;\n        text-align: center;\n        width: 100%;\n        font-size: 75%;\n        top: -15px\n     }\n     .compass_container .text_container{\n        height: 100%;\n        width: 100%;\n        padding: 0px;\n        display: block;\n        border-radius: 100%;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        align-items: center;\n     }\n     \n     .compass_container .arrow{\n        transition: 1s ease-in-out;\n        width: 100%;\n        height: 100%;\n        display: block;\n        position: absolute;\n        top: 0;\n     }\n     \n     .compass_container .arrow .triangle{\n        width: 0;\n\t\theight: 0;\n\t\tborder-left: 45px solid transparent;\n\t\tborder-right: 45px solid transparent;\n\t\tborder-bottom: 90px solid black;\n\t\tposition: absolute;\n\t\ttop: -15px;\n\t\tleft: 50%;\n\t\tmargin-left: -45px;\n\t\tz-index: 99;\n     }\n</style>\n\n<div class=\"compass_container\" style=\"\">\n    <div class=\"compass_header\">N</div>\n  \n    <div class=\"nr-dashboard-text text_container\">\n    \n        <div class=\"direction\" style=\"font-size: 120%\">{{direction}}</div>\n        <div style=\"flex-direction: row; font-weight: bold;\">\n            <span style=\"font-size: 100%\">{{msg.payload.speed}}</span>\n            <span style=\"font-size: 75%\">{{msg.payload.speed_unit}}</span>\n        </div>\n    </div>\n    <div class=\"arrow\" style=\"transform: rotate({{msg.payload.degrees}}deg);\">\n      <div class=\"triangle\"></div>\n    </div>\n</div>","storeOutMessages":true,"fwdInMessages":true,"templateScope":"local","x":960,"y":900,"wires":[[]]},{"id":"a6e49c85.5a16e","type":"worldmap","z":"3e0b45b1.3d070a","name":"","lat":"","lon":"","zoom":"","layer":"","cluster":"","maxage":"","usermenu":"show","layers":"show","panit":"false","panlock":"false","zoomlock":"false","hiderightclick":"false","coords":"none","path":"/trackgeo","x":1080,"y":280,"wires":[]},{"id":"c6c840d3.a2a42","type":"worldmap","z":"3e0b45b1.3d070a","name":"","lat":"3.084808349609375","lon":"101.38258500812066","zoom":"10","layer":"OSM","cluster":"5","maxage":"","usermenu":"show","layers":"show","panit":"true","panlock":"false","zoomlock":"false","hiderightclick":"false","coords":"deg","path":"","x":930,"y":700,"wires":[]},{"id":"f05d595d.10ad08","type":"worldmap-tracks","z":"3e0b45b1.3d070a","name":"","depth":20,"layer":"combined","x":890,"y":220,"wires":[["a6e49c85.5a16e"]]},{"id":"5dfd426c.0d3c6c","type":"worldmap-tracks","z":"3e0b45b1.3d070a","name":"","depth":20,"layer":"combined","x":770,"y":740,"wires":[["c6c840d3.a2a42"]]},{"id":"5b059dc9.251824","type":"moment","z":"3e0b45b1.3d070a","name":"","topic":"","input":"payload.tst","inputType":"msg","inTz":"Asia/Kuala_Lumpur","adjAmount":0,"adjType":"days","adjDir":"add","format":"h:mm:ss a', MMMM Do YYYY","locale":"C","output":"","outputType":"msg","outTz":"Asia/Kuala_Lumpur","x":760,"y":480,"wires":[["df9dc114.a2e36"]]},{"id":"29268132.f26f8e","type":"owntracks","z":"3e0b45b1.3d070a","x":390,"y":560,"wires":[["8464fdd0.23608","97fb8960.a746c8","e4b9e3bd.bd14f","d1e38ff8.1efff","cdbf98fb.5797e8","f97a0836.76d528"]]},{"id":"ef75e605.488df8","type":"mqtt-broker","z":"","name":"airmode.live","broker":"airmode.live","port":"1883","clientid":"","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"birthTopic":"udang_stat","birthQos":"2","birthRetain":"false","birthPayload":"msg","closeTopic":"","closeQos":"0","closePayload":"","willTopic":"","willQos":"0","willPayload":""},{"id":"7be37355.bf8d4c","type":"ui_group","z":"","name":"sensors","tab":"51436c2e.2c0cf4","order":1,"disp":true,"width":"8","collapse":false},{"id":"1cffee79.2009b2","type":"ui_group","z":"","name":"sensors","tab":"","order":1,"disp":false,"width":"7","collapse":false},{"id":"51436c2e.2c0cf4","type":"ui_tab","z":"","name":"Owntracks","icon":"dashboard","order":11,"disabled":false,"hidden":false}]
+[
+    {
+        "id": "3e0b45b1.3d070a",
+        "type": "tab",
+        "label": "Owntracks",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "10f9403a.f9e74",
+        "type": "mqtt in",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "topic": "owntracks/user/mra",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "ef75e605.488df8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 170,
+        "y": 560,
+        "wires": [
+            [
+                "9983df5.a02bb2"
+            ]
+        ]
+    },
+    {
+        "id": "b464eb6a.3492d8",
+        "type": "comment",
+        "z": "3e0b45b1.3d070a",
+        "name": "How to embed Map in Dashboard",
+        "info": "This example shows how to embed the Worldmap \ninto a template node within the `node-red-dashboard`\n\nThe first flow creates a dashboard button that \ngenerates a randon position, with the required \nicon, and passes that to the worldmap. The\nmap is configured to automatically pan to the\nposition of any point that arrives.\n\nThe second flow initialise the dashboard template\nwith the initial map and sets it to a more square shape\nby adjusting the height.",
+        "x": 1000,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f97a0836.76d528",
+        "type": "function",
+        "z": "3e0b45b1.3d070a",
+        "name": "GPS",
+        "func": "\n\nreturn {\n    payload: {\n        name: msg.payload.tid,\n        lat: msg.payload.lat,\n        lon: msg.payload.lon,\n        icon: 'user-circle-o'\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 700,
+        "wires": [
+            [
+                "5dfd426c.0d3c6c",
+                "0106a5cdbd641e46"
+            ]
+        ]
+    },
+    {
+        "id": "cdbf98fb.5797e8",
+        "type": "function",
+        "z": "3e0b45b1.3d070a",
+        "name": "Altitude",
+        "func": "return {\n    payload: {\n    Altitude:msg.payload.alt\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 660,
+        "wires": [
+            [
+                "ae08b605.452fa8"
+            ]
+        ]
+    },
+    {
+        "id": "ae08b605.452fa8",
+        "type": "split",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "splt": ":",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 770,
+        "y": 660,
+        "wires": [
+            [
+                "a3bb6ac0.417218"
+            ]
+        ]
+    },
+    {
+        "id": "8464fdd0.23608",
+        "type": "function",
+        "z": "3e0b45b1.3d070a",
+        "name": "RTC",
+        "func": "return {\n    payload: {\n    Time:msg.payload.tst\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "5b059dc9.251824"
+            ]
+        ]
+    },
+    {
+        "id": "c8bbf424.895ee8",
+        "type": "comment",
+        "z": "3e0b45b1.3d070a",
+        "name": "Using JSON to decide incoming msg",
+        "info": "",
+        "x": 630,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "9983df5.a02bb2",
+        "type": "json",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 500,
+        "wires": [
+            [
+                "8464fdd0.23608",
+                "cdbf98fb.5797e8",
+                "f97a0836.76d528",
+                "4b3c01761da11fe7",
+                "1eb22263.21a71e",
+                "6e8c7fd2.e4db2",
+                "d6a3847465237c76"
+            ]
+        ]
+    },
+    {
+        "id": "a3bb6ac0.417218",
+        "type": "ui_chart",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "group": "7be37355.bf8d4c",
+        "order": 7,
+        "width": 10,
+        "height": 4,
+        "label": "Altitude (m)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "step",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6e8c7fd2.e4db2",
+        "type": "ui_gauge",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "group": "7be37355.bf8d4c",
+        "order": 5,
+        "width": 5,
+        "height": 3,
+        "gtype": "wave",
+        "title": "Battery",
+        "label": "%",
+        "format": "{{msg.payload.batt}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#b53f32",
+            "#e5e620",
+            "#32ca0f"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 940,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "1eb22263.21a71e",
+        "type": "ui_gauge",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "group": "7be37355.bf8d4c",
+        "order": 6,
+        "width": 5,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Velocity",
+        "label": "KMH",
+        "format": "{{msg.payload.vel | number:1}}",
+        "min": 0,
+        "max": "150",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 940,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "df9dc114.a2e36",
+        "type": "ui_text",
+        "z": "3e0b45b1.3d070a",
+        "group": "7be37355.bf8d4c",
+        "order": 3,
+        "width": 10,
+        "height": 1,
+        "name": "",
+        "label": "",
+        "format": "<h2>{{msg.payload}}</h2>",
+        "layout": "row-center",
+        "className": "",
+        "x": 950,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "5dfd426c.0d3c6c",
+        "type": "worldmap-tracks",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "depth": 20,
+        "layer": "combined",
+        "x": 770,
+        "y": 740,
+        "wires": [
+            [
+                "0106a5cdbd641e46"
+            ]
+        ]
+    },
+    {
+        "id": "5b059dc9.251824",
+        "type": "moment",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "topic": "",
+        "input": "payload.tst",
+        "inputType": "msg",
+        "inTz": "Asia/Kuala_Lumpur",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "h:mm:ss a', MMMM Do YYYY",
+        "locale": "C",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Kuala_Lumpur",
+        "x": 760,
+        "y": 480,
+        "wires": [
+            [
+                "df9dc114.a2e36"
+            ]
+        ]
+    },
+    {
+        "id": "4b3c01761da11fe7",
+        "type": "debug",
+        "z": "3e0b45b1.3d070a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "0106a5cdbd641e46",
+        "type": "ui_worldmap",
+        "z": "3e0b45b1.3d070a",
+        "group": "7be37355.bf8d4c",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "10",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 940,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "eeab38aaafac8f84",
+        "type": "ui_template",
+        "z": "3e0b45b1.3d070a",
+        "group": "7be37355.bf8d4c",
+        "name": "SEAIC",
+        "order": 2,
+        "width": 7,
+        "height": 2,
+        "format": "<div height=\"70\" align=\"center\" style=\"height: 70px;\">\n<img src='https://raw.githubusercontent.com/hanifr/logos/master/SEAICrev%205%20Kusanagi%20rev%202%20no%20line.png' width=\"300\" alt=\"Avatar\" class=\"w3-wide\">\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 950,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57898ee6edd98e96",
+        "type": "ui_template",
+        "z": "3e0b45b1.3d070a",
+        "group": "7be37355.bf8d4c",
+        "name": "NEXPLEX",
+        "order": 1,
+        "width": 3,
+        "height": 2,
+        "format": "<div height=\"150\" align=\"center\" style=\"height: 150px;\">\n<img src='https://raw.githubusercontent.com/hanifr/logos/master/nex-plex%20logo.png' width=\"90\" alt=\"Avatar\" class=\"w3-wide\">\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 820,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "088eb3b451136cb0",
+        "type": "ui_text",
+        "z": "3e0b45b1.3d070a",
+        "group": "7be37355.bf8d4c",
+        "order": 4,
+        "width": 10,
+        "height": 1,
+        "name": "",
+        "label": "Connectivity Status",
+        "format": "<h2>{{msg.payload}}</h2>",
+        "layout": "row-center",
+        "className": "",
+        "x": 910,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "d6a3847465237c76",
+        "type": "function",
+        "z": "3e0b45b1.3d070a",
+        "name": "Connection",
+        "func": "msg.payload = msg.payload.conn;\nif (msg.payload == \"w\"){\n    msg.payload = \"Wifi Connection\"\n}\nelse {\n   msg.payload = \"4G Internet\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 600,
+        "wires": [
+            [
+                "088eb3b451136cb0"
+            ]
+        ]
+    },
+    {
+        "id": "ef75e605.488df8",
+        "type": "mqtt-broker",
+        "name": "airmode.live",
+        "broker": "airmode.live",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "udang_stat",
+        "birthQos": "2",
+        "birthRetain": "false",
+        "birthPayload": "msg",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7be37355.bf8d4c",
+        "type": "ui_group",
+        "name": "sensors",
+        "tab": "51436c2e.2c0cf4",
+        "order": 1,
+        "disp": false,
+        "width": 10,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "51436c2e.2c0cf4",
+        "type": "ui_tab",
+        "name": "Owntracks",
+        "icon": "dashboard",
+        "order": 11,
+        "disabled": false,
+        "hidden": false
+    }
+]
