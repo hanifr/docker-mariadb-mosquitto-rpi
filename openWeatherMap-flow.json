@@ -1,0 +1,954 @@
+[
+    {
+        "id": "a2725a83.f14ea8",
+        "type": "tab",
+        "label": "Openweather",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3b748942.5b21c6",
+        "type": "json",
+        "z": "a2725a83.f14ea8",
+        "name": "Data",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 710,
+        "y": 200,
+        "wires": [
+            [
+                "515275c2.8548bc",
+                "cb39a021.816a1",
+                "d320baf2.1f7548",
+                "65581f29.8f458",
+                "3a1b8941.a607b6",
+                "8acde9e2.788bd8",
+                "f49aa448.f3bb48",
+                "2290af4b.2f1c5",
+                "a5770e13.82164",
+                "73229e46.2b17",
+                "34ca8e71.3c2b42"
+            ]
+        ]
+    },
+    {
+        "id": "8acde9e2.788bd8",
+        "type": "debug",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1010,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "515275c2.8548bc",
+        "type": "ui_gauge",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "group": "217d3dcb.c66bb2",
+        "order": 6,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{msg.payload.main.temp}}",
+        "min": "-40",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1010,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cb39a021.816a1",
+        "type": "ui_gauge",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "group": "217d3dcb.c66bb2",
+        "order": 8,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "Pressure",
+        "label": "hPa",
+        "format": "{{msg.payload.main.pressure}}",
+        "min": "0",
+        "max": "2000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1000,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3a1b8941.a607b6",
+        "type": "ui_text",
+        "z": "a2725a83.f14ea8",
+        "group": "217d3dcb.c66bb2",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "City",
+        "format": "{{msg.payload.name}} ",
+        "layout": "row-left",
+        "x": 990,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "65581f29.8f458",
+        "type": "ui_gauge",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "group": "217d3dcb.c66bb2",
+        "order": 5,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "Wind speed",
+        "label": "m/s",
+        "format": "{{msg.payload.wind.speed}}",
+        "min": "0",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1010,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ee8ed163.ac429",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Collect city and country from the ui form at https://nodered.rodened.io/ui",
+        "info": "",
+        "x": 340,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "13d4d130.f0e07f",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Send to dashboard at https://nodered.rodened.io/ui",
+        "info": "",
+        "x": 990,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d5b1a852.01fba8",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Make a http request to openweathermp",
+        "info": "",
+        "x": 310,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b62efae0.e19208",
+        "type": "ui_form",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "label": "",
+        "group": "217d3dcb.c66bb2",
+        "order": 1,
+        "width": 17,
+        "height": 1,
+        "options": [
+            {
+                "label": "City",
+                "value": "city",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Country",
+                "value": "country",
+                "type": "text",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "city": "",
+            "country": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "x": 90,
+        "y": 200,
+        "wires": [
+            [
+                "1df75efd.b283f1",
+                "26d3a3cb.cc4bac"
+            ]
+        ]
+    },
+    {
+        "id": "1df75efd.b283f1",
+        "type": "http request",
+        "z": "a2725a83.f14ea8",
+        "name": "Openweathermap",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "http://api.openweathermap.org/data/2.5/weather?q={{{payload.city}}},{{{payload.country}}}&units=metric&appid=45a2a23d23c78dbe34c5fbd75a591573",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 550,
+        "y": 200,
+        "wires": [
+            [
+                "3b748942.5b21c6"
+            ]
+        ]
+    },
+    {
+        "id": "d320baf2.1f7548",
+        "type": "ui_gauge",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "group": "217d3dcb.c66bb2",
+        "order": 9,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "",
+        "format": "{{msg.payload.main.humidity}}",
+        "min": "0",
+        "max": "110",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1000,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d97d762f.7c6d78",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Send the weather data to the debug window",
+        "info": "",
+        "x": 990,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7599e900.12a888",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Required extra node to install: node-red-dashboard",
+        "info": "",
+        "x": 350,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a5770e13.82164",
+        "type": "ui_gauge",
+        "z": "a2725a83.f14ea8",
+        "name": "Wind Direction",
+        "group": "217d3dcb.c66bb2",
+        "order": 7,
+        "width": 5,
+        "height": 3,
+        "gtype": "compass",
+        "title": "Wind Direction",
+        "label": "°",
+        "format": "{{msg.payload.wind.deg}}",
+        "min": 0,
+        "max": "360",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1000,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f49aa448.f3bb48",
+        "type": "ui_text",
+        "z": "a2725a83.f14ea8",
+        "group": "217d3dcb.c66bb2",
+        "order": 4,
+        "width": 10,
+        "height": 1,
+        "name": "Description",
+        "label": "",
+        "format": "{{msg.payload.weather[0].description}}",
+        "layout": "row-center",
+        "x": 1010,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "73229e46.2b17",
+        "type": "ui_text",
+        "z": "a2725a83.f14ea8",
+        "group": "217d3dcb.c66bb2",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "name": "Clouds",
+        "label": "<h4><font> Weather : </font></h4>",
+        "format": "<h4><font color = \"#0f1391\"> {{msg.payload.clouds.all}}</font></h4>",
+        "layout": "row-center",
+        "x": 1020,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "2290af4b.2f1c5",
+        "type": "function",
+        "z": "a2725a83.f14ea8",
+        "name": "Weather Details",
+        "func": "msg.payload = msg.payload.weather[0].description;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 840,
+        "y": 520,
+        "wires": [
+            [
+                "affc71fc.ecd3d"
+            ]
+        ]
+    },
+    {
+        "id": "affc71fc.ecd3d",
+        "type": "ui_audio",
+        "z": "a2725a83.f14ea8",
+        "name": "Voice Over",
+        "group": "217d3dcb.c66bb2",
+        "voice": "Google US English",
+        "always": "",
+        "x": 1010,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "ba40e26e.9eb3a",
+        "type": "ui_text",
+        "z": "a2725a83.f14ea8",
+        "group": "217d3dcb.c66bb2",
+        "order": 10,
+        "width": 6,
+        "height": 1,
+        "name": "Sunrise",
+        "label": "Sunrise",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 1020,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "f2ae4fce.32ff",
+        "type": "ui_text",
+        "z": "a2725a83.f14ea8",
+        "group": "217d3dcb.c66bb2",
+        "order": 11,
+        "width": 6,
+        "height": 1,
+        "name": "Sunset",
+        "label": "Sunset",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 1020,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "470fd620.7bb008",
+        "type": "ui_text",
+        "z": "a2725a83.f14ea8",
+        "group": "217d3dcb.c66bb2",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "name": "current time",
+        "label": "Time: ",
+        "format": "{{msg.payload | date: \"shortTime\"}}",
+        "layout": "row-center",
+        "x": 1010,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "e8a474ba.22cad8",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "topic": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 720,
+        "y": 680,
+        "wires": [
+            [
+                "470fd620.7bb008"
+            ]
+        ]
+    },
+    {
+        "id": "2d040106.32e48e",
+        "type": "mysql",
+        "z": "a2725a83.f14ea8",
+        "mydb": "9569e42d.381be8",
+        "name": "TXIOUiTMDataBase",
+        "x": 820,
+        "y": 860,
+        "wires": [
+            [
+                "8d9507f9.4e8248"
+            ]
+        ]
+    },
+    {
+        "id": "16f98da7.9c3bf2",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "topic": "SELECT sid, machines, mctime FROM sample_machines",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 420,
+        "wires": [
+            [
+                "828fd918.b50788"
+            ]
+        ]
+    },
+    {
+        "id": "186d9848.07a498",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "MySQL: Create sample_machines",
+        "topic": "CREATE TABLE sample_machines (sid VARCHAR(150) NOT NULL, machines VARCHAR(150) NOT NULL, mctime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP )",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "828fd918.b50788"
+            ]
+        ]
+    },
+    {
+        "id": "828fd918.b50788",
+        "type": "link out",
+        "z": "a2725a83.f14ea8",
+        "name": "machine_tracking_out",
+        "links": [
+            "62b3340c.5fcddc"
+        ],
+        "x": 435,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8f70b62b.960388",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "MySQL:drop table sample_machines",
+        "topic": "drop table sample_machines",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 380,
+        "wires": [
+            [
+                "828fd918.b50788"
+            ]
+        ]
+    },
+    {
+        "id": "bfa7f564.f19118",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "MySQL:describe table sample_machines",
+        "topic": "describe sample_machines",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "828fd918.b50788"
+            ]
+        ]
+    },
+    {
+        "id": "ce5cc1fd.48d92",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "SHOW DATABASES",
+        "topic": "show databases",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 780,
+        "wires": [
+            [
+                "85c7198d.0fcd98"
+            ]
+        ]
+    },
+    {
+        "id": "8d9507f9.4e8248",
+        "type": "debug",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1010,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "3a0ca6f4.5075ba",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "USE DATABASE",
+        "topic": "use tracker",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 820,
+        "wires": [
+            [
+                "85c7198d.0fcd98"
+            ]
+        ]
+    },
+    {
+        "id": "d67016c3.fd67f8",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "CREATE TABLE weather",
+        "topic": "CREATE TABLE weather (tmp DECIMAL(16,2) DEFAULT '0.00' NOT NULL, ws DECIMAL(16,2) DEFAULT '0.00' NOT NULL, wd DECIMAL(16,2) DEFAULT '0.00' NOT NULL, timestamp TIMESTAMP DEFAULT  CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 860,
+        "wires": [
+            [
+                "85c7198d.0fcd98"
+            ]
+        ]
+    },
+    {
+        "id": "74cca731.ebf568",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "DESCRIBE TABLE weather",
+        "topic": "DESCRIBE weather",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 900,
+        "wires": [
+            [
+                "85c7198d.0fcd98"
+            ]
+        ]
+    },
+    {
+        "id": "3741552c.c429da",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "DROP TABLE weather",
+        "topic": "DROP TABLE weather",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 940,
+        "wires": [
+            [
+                "85c7198d.0fcd98"
+            ]
+        ]
+    },
+    {
+        "id": "85c7198d.0fcd98",
+        "type": "link out",
+        "z": "a2725a83.f14ea8",
+        "name": "DataManagerOut",
+        "links": [
+            "89e0b877.437aa8"
+        ],
+        "x": 435,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "89e0b877.437aa8",
+        "type": "link in",
+        "z": "a2725a83.f14ea8",
+        "name": "DataManagerIn",
+        "links": [
+            "85c7198d.0fcd98",
+            "751bb195.80af2"
+        ],
+        "x": 635,
+        "y": 860,
+        "wires": [
+            [
+                "2d040106.32e48e"
+            ]
+        ]
+    },
+    {
+        "id": "e7a5e5d7.1cde48",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Database Managment",
+        "info": "",
+        "x": 560,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "eb57170a.39a448",
+        "type": "function",
+        "z": "a2725a83.f14ea8",
+        "name": "TMP Database Push",
+        "func": "msg.topic = \"INSERT INTO weather (tmp, ws, wd) \" + \"VALUES ('\" + msg.payload.main.temp + \"', '\" + msg.payload.wind.speed + \"', '\" + msg.payload.wind.deg + \"');\"\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1520,
+        "y": 140,
+        "wires": [
+            [
+                "751bb195.80af2"
+            ]
+        ]
+    },
+    {
+        "id": "34ca8e71.3c2b42",
+        "type": "link out",
+        "z": "a2725a83.f14ea8",
+        "name": "WeatherAPI_Out",
+        "links": [
+            "f8cd0e4e.a924d",
+            "f22c0266.d339"
+        ],
+        "x": 815,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f8cd0e4e.a924d",
+        "type": "link in",
+        "z": "a2725a83.f14ea8",
+        "name": "WeatherAPI_In",
+        "links": [
+            "34ca8e71.3c2b42"
+        ],
+        "x": 1355,
+        "y": 140,
+        "wires": [
+            [
+                "eb57170a.39a448"
+            ]
+        ]
+    },
+    {
+        "id": "47ac0518.101a1c",
+        "type": "comment",
+        "z": "a2725a83.f14ea8",
+        "name": "Data Processing Tasks",
+        "info": "",
+        "x": 1520,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "751bb195.80af2",
+        "type": "link out",
+        "z": "a2725a83.f14ea8",
+        "name": "TMP_DataOut",
+        "links": [
+            "89e0b877.437aa8"
+        ],
+        "x": 1705,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5323acc3.d4de54",
+        "type": "inject",
+        "z": "a2725a83.f14ea8",
+        "name": "SHOW DATA from weather TABLE",
+        "topic": "SELECT * FROM weather",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 980,
+        "wires": [
+            [
+                "85c7198d.0fcd98"
+            ]
+        ]
+    },
+    {
+        "id": "26d3a3cb.cc4bac",
+        "type": "debug",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 520,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "aeaf8761.a9b578",
+        "type": "function",
+        "z": "a2725a83.f14ea8",
+        "name": "Render Location",
+        "func": "var city = {};\nvar country = {};\ncity = msg.payload;\nmsg.payload = {\"city\":city, \"country\": \"Malaysia\"};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "1df75efd.b283f1"
+            ]
+        ]
+    },
+    {
+        "id": "558f2ad7.cd1d34",
+        "type": "mqtt in",
+        "z": "a2725a83.f14ea8",
+        "name": "Weather Request",
+        "topic": "TRX/data/weather/request",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "d55454d9.703578",
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "2ade06de.696cea",
+                "aeaf8761.a9b578"
+            ]
+        ]
+    },
+    {
+        "id": "2ade06de.696cea",
+        "type": "debug",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 530,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f22c0266.d339",
+        "type": "link in",
+        "z": "a2725a83.f14ea8",
+        "name": "Weather_Data_Apps_In",
+        "links": [
+            "34ca8e71.3c2b42"
+        ],
+        "x": 75,
+        "y": 500,
+        "wires": [
+            [
+                "51fc9402.bc393c"
+            ]
+        ]
+    },
+    {
+        "id": "51fc9402.bc393c",
+        "type": "function",
+        "z": "a2725a83.f14ea8",
+        "name": "Weather summary",
+        "func": "msg.payload = {\"CT\":msg.payload.name, \"DESC\": msg.payload.weather[0].description,\"TMP\":msg.payload.main.temp, \"HMD\":msg.payload.main.humidity, \"VCB\":msg.payload.visibility/1000, \"WS\": msg.payload.wind.speed, \"ATM\":msg.payload.main.pressure};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 255,
+        "y": 500,
+        "wires": [
+            [
+                "5e1bb67f.e59e48",
+                "2918912e.f4411e"
+            ]
+        ]
+    },
+    {
+        "id": "5e1bb67f.e59e48",
+        "type": "debug",
+        "z": "a2725a83.f14ea8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 465,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2918912e.f4411e",
+        "type": "mqtt out",
+        "z": "a2725a83.f14ea8",
+        "name": "Weather Response",
+        "topic": "TRX/data/weather/response",
+        "qos": "2",
+        "retain": "false",
+        "broker": "d55454d9.703578",
+        "x": 500,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "217d3dcb.c66bb2",
+        "type": "ui_group",
+        "name": "Weather Station",
+        "tab": "40b8f1a9.20b45",
+        "order": 1,
+        "disp": false,
+        "width": 17,
+        "collapse": false
+    },
+    {
+        "id": "9569e42d.381be8",
+        "type": "MySQLdatabase",
+        "z": "",
+        "name": "UiTM",
+        "host": "txio.uitm.edu.my",
+        "port": "3080",
+        "db": "tracker",
+        "tz": "Asia/Kuala_Lumpur",
+        "charset": "UTF8"
+    },
+    {
+        "id": "d55454d9.703578",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "uitmTX",
+        "broker": "txio.uitm.edu.my",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "40b8f1a9.20b45",
+        "type": "ui_tab",
+        "name": "Weather Board",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
