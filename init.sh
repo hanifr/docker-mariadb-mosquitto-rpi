@@ -24,7 +24,8 @@ echo
 . initset
 sleep 2
 # install docker-ce
-curl -sSL https://get.docker.com | sh
+curl -fsSL https://get.docker.com -o get-docker.sh
+#curl -sSL https://get.docker.com | sh
 
 # add privilage to docker
 sudo usermod -aG docker pi
